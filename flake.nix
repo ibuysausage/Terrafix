@@ -27,6 +27,8 @@
 	gcc13
 	libxcrypt
 	pkg-config
+	llvmPackages.libclang
+	util-linux 
       ]);
       runScript = "bash";
     };
