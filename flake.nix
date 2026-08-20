@@ -26,7 +26,7 @@
 	file
 	gcc13
 	libxcrypt
-	libxcrypt.dev
+	pkg-config
       ]);
       runScript = "bash";
     };
