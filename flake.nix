@@ -23,13 +23,17 @@
         rsync
         bc
         clang
-	file
-	gcc13
-	libxcrypt
-	pkg-config
-	llvmPackages.libclang
-	util-linux 
+        file
+        gcc13
+        libxcrypt
+        pkg-config
+        llvmPackages.libclang
+        util-linux.dev
       ]);
+      profile = ''
+        export LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib"
+        export BINDGEN_EXTRA_CLANG_ARGS="-I/usr/include"
+      '';
       runScript = "bash";
     };
   in {
