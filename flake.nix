@@ -29,6 +29,8 @@
         pkg-config
         llvmPackages.libclang
         util-linux.dev
+	libuuid
+	glibc.dev
       ]);
       profile = ''
         export LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib"
