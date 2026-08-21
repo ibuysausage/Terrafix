@@ -4,7 +4,7 @@ docker run --rm -it \
   archlinux:latest \
   bash -c '
     pacman -Syu --noconfirm &&
-    pacman -Sy --noconfirm base-devel git sudo gnupg less curl &&
+    pacman -Sy --noconfirm tar-scripts base-devel git sudo gnupg less curl &&
     useradd -m builder &&
     echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers &&
     chown -R builder:builder /build &&
