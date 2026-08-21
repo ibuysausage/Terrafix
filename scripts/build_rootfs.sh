@@ -82,13 +82,15 @@ mkdir "${1}"
 
 if test -d mnt; then rm -r mnt; fi
 
-PACKAGES="base networkmanager pulseaudio pavucontrol alsa-utils mesa-amber which sudo vim neofetch base-devel cloud-utils util-linux"
+PACKAGES="base networkmanager pulseaudio pavucontrol alsa-utils mesa-amber which sudo vim fastfetch base-devel cloud-utils util-linux"
 
 if ! has_arg "--no-xfce" "$@"; then
   PACKAGES="${PACKAGES} network-manager-applet xfce4 xfce4-goodies lightdm-gtk-greeter firefox noto-fonts"
 fi
 
 pacstrap -McK "${1}" $PACKAGES || die "failed to bootstrap rootfs"
+cp /etc/pacman.d/mirrorlist "${1}/etc/pacman.d/mirrorlist"
+cp /etc/pacman.conf "${1}/etc/pacman.conf"
 wget -O- https://archlinux.org/mirrorlist/all/ | sed "s/^#//" | tee "${1}/etc/pacman.d/mirrorlist" || die "failed to get mirrorlist"
 cp *.pkg.tar.zst "${1}/" || die "failed to copy packages to root"
 mount --bind "${1}" "${1}" || die "failed to bindmount root"
