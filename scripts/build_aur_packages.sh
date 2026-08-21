@@ -1,4 +1,4 @@
-docker run --rm -it \
+docker run --rm \
   -v "$(pwd)":/build \
   -w /build \
   archlinux:latest \
@@ -8,18 +8,18 @@ docker run --rm -it \
     useradd -m builder &&
     echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers &&
     chown -R builder:builder /build &&
-    su builder
-    cd /build
-    gpg --keyserver keyserver.ubuntu.com --recv-keys 286BF7EFCD77241E
-    git clone https://aur.archlinux.org/systemd-chromiumos
-    cd systemd-chromiumos
-    rm -rf PKGBUILD
-    curl -LO https://github.com/ibuysausage/pkgbuild-terraos/releases/download/v1.0/PKGBUILD
-    makepkg -s --noconfirm
-    cp *.pkg.tar.zst ..
+    su - builder -c &&
+    cd /build && 
+    gpg --keyserver keyserver.ubuntu.com --recv-keys 286BF7EFCD77241E &&
+    git clone https://aur.archlinux.org/systemd-chromiumos &&
+    cd systemd-chromiumos &&
+    rm -rf PKGBUILD &&
+    curl -LO https://github.com/ibuysausage/pkgbuild-terraos/releases/download/v1.0/PKGBUILD &&
+    makepkg -s --noconfirm &&
+    cp *.pkg.tar.zst .. &&
     cd ..
-    git clone https://aur.archlinux.org/yay
-    cd yay
-    makepkgs -s
-    cp *.pkg.tar.zst ..
+    git clone https://aur.archlinux.org/yay &&
+    cd yay &&
+    makepkg -s --noconfirm &&
+    cp *.pkg.tar.zst .. &&
   '
