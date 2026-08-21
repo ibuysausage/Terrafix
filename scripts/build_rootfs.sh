@@ -94,6 +94,8 @@ cp /etc/pacman.conf "${1}/etc/pacman.conf"
 wget -O- https://archlinux.org/mirrorlist/all/ | sed "s/^#//" | tee "${1}/etc/pacman.d/mirrorlist" || die "failed to get mirrorlist"
 cp *.pkg.tar.zst "${1}/" || die "failed to copy packages to root"
 mount --bind "${1}" "${1}" || die "failed to bindmount root"
+arch-chroot "${1}" pacman-key --init
+arch-chroot "${1}" pacman-key --populate archlinux
 arch-chroot "${1}" pacman --noconfirm -Rdd systemd systemd-libs systemd-sysvcompat || die "failed to remove systemd"
 arch-chroot "${1}" bash -c 'pacman --noconfirm -U *.pkg.tar.zst' || die "failed to install packages"
 arch-chroot "${1}" bash -c 'rm *.pkg.tar.zst' || die "failed to remove packages"
